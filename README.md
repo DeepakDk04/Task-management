@@ -38,11 +38,11 @@ and user profiles on the Webapp.
 
 
 ### Run Command (Python)
-	`$ pip install -r requirements.txt`
+	pip install -r requirements.txt
 
-	`$ python manage.py runserver`
+	python manage.py runserver
 
 ### Run Command (Docker Container)
-	`$ docker-compose build`
+	docker-compose build
 
-	`$ docker-compose up`
+	docker-compose up
