@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<h1 class="text-center pt-3 ">Owned Tasks {{tasks_owned}}</h1>
+
+
+<div class="card-columns p-5">
+    <div class="card bg-light">
+        <div class="card-body text-center">
+
+            <h4 class="card-title">{{profile.user.email}}</h4>
+            <p class="card-text">Email</p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h4 class="card-title">{{profile.user.last_name|default:"-"}}</h4>
+            <p class="card-text">Last Name</p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h4 class="card-title">{%if profile.user.is_active%} Active {% else %} Not Active {% endif %}</h4>
+            <p class="card-text">User Active Status</p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <span class="badge badge-info">{{tasks_owned}}</span>
+        <div class="card-body text-center">
+            <h4 class="card-title">{{profile.user.username}}</h4>
+            <p class="card-text">Username{% if request.user == profile.user %} (You) {% endif %}</p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h4 class="card-title">{%if profile.user.is_superuser%} Admin {% else %} Not Admin{% endif %}</h4>
+            <p class="card-text">Admin Status</p>
+        </div>
+    </div>
+
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h4 class="card-title">{%if profile.user.is_staff%} Staff {% else %} Not Staff{% endif %}</h4>
+            <p class="card-text">Staff Status</p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h4 class="card-title">{{profile.user.first_name|default:"-"}}</h4>
+            <p class="card-text">First Name</p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h4 class="card-title">{{profile.user.date_joined|date:"jS M - f A"}}</h4>
+            <p class="card-text">Date Joined</p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center">
+            <h4 class="card-title">{{profile.user.last_login|default_if_none:"no recent login"}}</h4>
+            <p class="card-text">Last Login</p>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+
+    <a class="btn btn-warning mb-4" href={% url 'users-stat' %}>Back</a>
+</div>
+{% endblock %}

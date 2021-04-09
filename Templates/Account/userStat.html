@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container" id="user-stat">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="people-nearby">
+                <div class="nearby-user">
+
+                    <div class="row text-center">
+
+                        <div class="col-md-3 col-sm-2">
+                            <h1 class="text-center mt-3"></h1>
+                        </div>
+                        <div class="col-md-3 col-sm-7">
+                            <h5 class="text-primary">{{profilesCount}} Profiles </h5>
+                            <p class="text-muted">
+                                Latest Profile {{lastProfile}}
+                            </p>
+                        </div>
+
+                        <div class="col-md-3 col-sm-2">
+                            <h1 class="text-center mt-3"></h1>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <h5 class="text-primary">{{tasksCount}} Tasks </h5>
+
+
+                            <p class="text-muted">
+                                Latest Task Created at {{latestTask}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {% for profile in allProfile %}
+
+                <div class="nearby-user">
+
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user"
+                                class="profile-photo-lg">
+                        </div>
+                        <div class="col-md-7 col-sm-7">
+
+                            {%if profile.user.is_superuser%}
+                            <span class="badge badge-pill badge-secondary">Admin</span>
+                            {% endif %}
+                            <h5 class="text-primary">{{profile.user.username}}</h5>
+                            <p>{{profile.user.email}}</p>
+
+                            <p class="text-muted">
+                                Joined {{profile.user.date_joined|date:"jS M f A"}}
+                                {% if request.user == profile.user %} (You) {% endif %}
+                            </p>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <a class="btn btn-primary pull-right" href={% url 'user-detail' profile.id %}>View</a>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

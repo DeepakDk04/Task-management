@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+
+<h1>Tasks {{ tasks|length }}</h1>
+<div style="text-align: center;color:#ffffff; font-weight:bolder">
+
+    {% if messages %}
+    <ul style="list-style: none;" class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+
+</div>
+
+
+{% if tasks|length > 0 %}
+
+{% for task in tasks %}
+
+<div class="container py-4">
+    <div class="card-deck-wrapper">
+        <div class="card-deck">
+            <div class="card p-5">
+                <a class="card-block stretched-link text-decoration-none" href={% url 'task-view' task.id %}>
+                    <h4 class="card-title">{{task.name|capfirst}} </h4>
+                    <div class="card-text">
+
+                        {% if task.done %}
+                        <p class="btn btn-success">Finished</p>
+                        {% endif %}
+
+                        {% if not task.done %}
+                        <p class="btn btn-warning">Not Finished</p>
+                        {% endif %}
+                        <p class="card-text"><small class="text-muted">Created On {{task.createdOn}}</small></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endfor %}
+
+{% else %}
+
+<div class="container py-4">
+    <div class="card-deck-wrapper">
+        <div class="card-deck">
+            <div class="card p-5">
+                <a class="card-block stretched-link text-decoration-none" href={% url 'task-create' %}>
+                    <h4 class="card-title">No Tasks right now </h4>
+                    <div class="card-text">
+
+                        <h1>Try to Add Some Tasks and we make a note of it</h1>
+                        <p class="btn btn-outline-primary">Create Task</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+
+
+{% endblock %}

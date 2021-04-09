@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+
+<form action="" method='POST'>
+
+    {% csrf_token %}
+    <div class="container">
+
+        <div class="form-group pb-3">
+
+            {% if taskForm.name.errors %}
+            <ol>
+                {% for error in taskForm.name.errors %}
+                <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+            </ol>
+            {% endif %}
+            <div class="text-center">
+
+                <h1 class="text ml-5">{{taskForm.name.label_tag}}</h1>
+                {{taskForm.name}}
+            </div>
+
+        </div>
+
+        <div class="form-check pb-3">
+
+            {% if taskForm.done.errors %}
+            <ol>
+                {% for error in taskForm.done.errors %}
+                <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+            </ol>
+            {% endif %}
+
+            <div class="text-center ">
+                <h1 class="form-check-label ml-5">{{taskForm.done.label_tag}}</h1>
+                {{taskForm.done}}
+            </div>
+
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Add Task" class="btn btn-primary ml-5 pr-5 pl-5" />
+            <a href={% url 'tasks-view' %} class="btn btn-outline-warning ml-5 pr-5 pl-5">Back</a>
+        </div>
+
+    </div>
+</form>
+
+{% endblock %}

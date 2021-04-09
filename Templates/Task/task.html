@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+
+<div class="card text-center">
+
+    <div class="card-header">
+        Featured {{task.id}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Title</h5>
+        <p class="card-text">{{task.name}}</p>
+
+        {% if task.done %}
+        <p>Status : <span class="btn btn-sm btn-outline-success">Finished</span></p>
+        {% endif %}
+
+        {% if not task.done %}
+        <p>Status : <span class="btn btn-sm btn-outline-warning">Not Finished</span></p>
+        {% endif %}
+
+        <a href={% url 'task-edit' task.id %} class="btn btn-primary">Edit</a>
+        <a href={% url 'task-delete' task.id %} class="btn btn-danger">Delete</a>
+
+    </div>
+
+    <div class="card-footer text-muted">
+        <p>Created on {{task.createdOn}}</p>
+    </div>
+
+    <div><a href={% url 'tasks-view' %} class="btn btn-sm btn-outline-secondary"> Back </a></div>
+
+</div>
+
+
+{% endblock %}

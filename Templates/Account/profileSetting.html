@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<br>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <a href="{% url 'acc-home' %}" class="btn btn-warning" &#8592;>Back to Home</a>
+            <br>
+            {% if request.user.first_name %}
+            <h3 style="text-align: center;">Hello {{request.user.first_name}} {{request.user.last_name|escape}}
+            </h3>
+            {% else %}
+            <h3 style="text-align: center;">Welcome
+            </h3>
+            {% endif %}
+            <br>
+
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="card card-body">
+
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="inputLabel">{{field.label}}</label>
+                    <div id="inputLabel">{{field}}</div>
+                </div>
+                {%endfor%}
+                
+                <input type="submit" class="btn btn-primary ml-5" value="Update">
+            </form>
+
+            {% if form.errors %}
+            <div style="text-align: center;color:#f82929; font-weight:bolder">{{form.errors}}</div>
+            {% endif %}
+
+            <div style="text-align: center;color:#7f8c8d; font-weight:bolder">
+                {% if messages %}
+                <ul class="messages" style="list-style: none;">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock%}
